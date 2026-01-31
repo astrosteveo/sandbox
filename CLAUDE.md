@@ -35,6 +35,12 @@ cargo check --workspace
 
 # Run tests
 cargo test --workspace
+
+# Lint
+cargo clippy --workspace
+
+# Format
+cargo fmt --all
 ```
 
 ## Dependencies
@@ -62,23 +68,26 @@ cargo test --workspace
 - Games depend on `sandbox_engine`, not bevy directly
 - Editor-only code stays in `sandbox_editor`
 - Game-specific code stays in game crate
+- New `.rs` files need SPDX header:
+  ```rust
+  // SPDX-FileCopyrightText: 2026 the Sandbox contributors
+  // SPDX-License-Identifier: GPL-3.0-or-later
+  ```
+- Project is REUSE compliant - all source files must have SPDX headers
 
-## Current Status
+## Git Workflow
 
-### Implemented
-- [x] Workspace structure
-- [x] sandbox_engine with SandboxPlugin
-- [x] sandbox_editor with egui split viewport
-- [x] spaceminer with ship movement
+- Create feature branches off `main` for all changes
+- Use `gh pr create` for pull requests
+- Squash merge PRs, delete branch after merge
 
-### In Progress
-- [ ] Nothing currently
+## Key Files
 
-### Next Up
-- [ ] Render game to editor viewport (render-to-texture)
-- [ ] Entity inspector in editor
-- [ ] Asteroids in spaceminer
-- [ ] Scene serialization
+- `crates/sandbox_engine/src/lib.rs` - SandboxPlugin definition
+- `crates/sandbox_editor/src/main.rs` - Editor UI layout
+- `crates/spaceminer/src/main.rs` - Game loop and movement systems
+- `PRD.md` - Roadmap and status tracking
+- `GDD.md` - Spaceminer game design
 
 ## Architecture Notes
 
