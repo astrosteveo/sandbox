@@ -1,4 +1,4 @@
-// Copyright (C) 2025 the Sandbox contributors
+// SPDX-FileCopyrightText: 2026 the Sandbox contributors
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 //! Sandbox Engine - A Bevy-based 2D game engine
