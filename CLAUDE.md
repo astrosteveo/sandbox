@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 the Sandbox contributors
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Sandbox Engine - Project Context
 
 ## Project Structure
@@ -41,6 +46,9 @@ cargo clippy --workspace
 
 # Format
 cargo fmt --all
+
+# Check REUSE/license compliance
+reuse lint
 ```
 
 ## Dependencies
