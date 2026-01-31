@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 the Sandbox contributors
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Sandbox Engine
 
 [![REUSE compliant](https://reuse.software/badge/reuse-compliant.svg)](https://reuse.software/)

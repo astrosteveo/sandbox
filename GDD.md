@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2026 the Sandbox contributors
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+
 # Spaceminer - Game Design Document
 
 ## Overview
