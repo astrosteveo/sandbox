@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/sandbox_engine",
+    "crates/sandbox_editor",
+    "crates/spaceminer",
+]
+
+[workspace.dependencies]
+bevy = "0.15"
+bevy_egui = "0.31"

@@ -1,0 +1,9 @@
+[package]
+name = "sandbox_editor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sandbox_engine = { path = "../sandbox_engine" }
+bevy = { workspace = true }
+bevy_egui = { workspace = true }
