@@ -4,6 +4,7 @@
 //! Spaceminer - A 2D space mining game
 
 use bevy::prelude::*;
+use sandbox_engine::prelude::*;
 
 fn main() {
     App::new()
@@ -14,17 +15,27 @@ fn main() {
             }),
             ..default()
         }))
+        .add_plugins(EditorStatePlugin)
+        .register_type::<Ship>()
+        .register_type::<Velocity>()
         .add_systems(Startup, setup)
-        .add_systems(Update, (ship_input, apply_drag, apply_velocity, camera_follow).chain())
+        .add_systems(
+            Update,
+            (ship_input, apply_drag, apply_velocity, camera_follow)
+                .chain()
+                .in_set(GameplaySystemSet),
+        )
         .run();
 }
 
 /// Marker component for the player's ship
-#[derive(Component)]
+#[derive(Component, Reflect, Default)]
+#[reflect(Component)]
 struct Ship;
 
 /// Velocity component for physics-based movement
-#[derive(Component, Default)]
+#[derive(Component, Reflect, Default)]
+#[reflect(Component)]
 struct Velocity(Vec2);
 
 /// Movement constants
@@ -38,6 +49,7 @@ fn setup(mut commands: Commands) {
 
     // Spawn player ship as a colored rectangle
     commands.spawn((
+        Name::new("Player Ship"),
         Ship,
         Velocity::default(),
         Sprite {
