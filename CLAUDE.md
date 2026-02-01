@@ -100,12 +100,16 @@ reuse lint
 
 - `crates/sandbox_engine/src/lib.rs` - SandboxPlugin definition
 - `crates/sandbox_engine/src/editor_state.rs` - Play/pause/stop state machine, snapshot/restore
+- `crates/sandbox_engine/src/scene.rs` - Scene save/load, prefab support
 - `crates/sandbox_editor/src/main.rs` - Editor UI layout
 - `crates/sandbox_editor/src/ui/hierarchy.rs` - Scene hierarchy panel
 - `crates/sandbox_editor/src/ui/inspector.rs` - Entity inspector panel
+- `crates/sandbox_editor/src/ui/file_menu.rs` - File menu with scene operations
 - `crates/sandbox_editor/src/gizmo.rs` - Transform gizmo interaction
 - `crates/sandbox_editor/src/selection.rs` - Entity selection system
 - `crates/spaceminer/src/main.rs` - Game loop and movement systems
+- `assets/scenes/` - Scene files (.scn.ron format)
+- `assets/prefabs/` - Prefab files (.scn.ron format)
 - `PRD.md` - Roadmap and status tracking
 - `GDD.md` - Spaceminer game design
 
@@ -118,11 +122,19 @@ Bundles common 2D game setup:
 - Common game systems
 
 ### Editor Layout
+- Menu bar: File menu (New/Save/Load Scene, Prefabs) with keyboard shortcuts
 - Top: Toolbar with play/pause/stop controls
 - Left panel: Scene hierarchy (entity tree with selection)
 - Center: Viewport with grid and transform gizmos
 - Right panel: Inspector (component editing for selected entity)
-- Future: Menu bar, console/logs
+- Future: console/logs
+
+### Scene System
+- Scenes use RON format (`.scn.ron` files)
+- Scenes serialize all entities except cameras
+- Prefabs are scenes that can be spawned into existing scenes
+- Custom game components need `#[derive(Reflect)]` + `#[reflect(Component)]` and `register_type::<T>()` for serialization
+- Keyboard shortcuts: Ctrl+N (New), Ctrl+S (Save), Ctrl+Shift+S (Save As), Ctrl+O (Load)
 
 ### Spaceminer Movement
 - `Velocity` component stores current velocity

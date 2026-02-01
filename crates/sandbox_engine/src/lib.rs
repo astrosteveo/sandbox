@@ -8,10 +8,15 @@
 pub use bevy;
 
 pub mod editor_state;
+pub mod scene;
 
 pub mod prelude {
     pub use crate::editor_state::{
         EditorPlayState, EditorSnapshot, EditorStatePlugin, EntityState, GameplaySystemSet,
+    };
+    pub use crate::scene::{
+        clear_scene_entities, load_scene, new_scene, save_scene, spawn_prefab, SceneError,
+        SceneManager, ScenePlugin, SceneResult,
     };
     pub use crate::SandboxPlugin;
     pub use bevy::prelude::*;

@@ -10,3 +10,4 @@ edition = "2021"
 sandbox_engine = { path = "../sandbox_engine" }
 bevy = { workspace = true }
 bevy_egui = { workspace = true }
+rfd = "0.15"

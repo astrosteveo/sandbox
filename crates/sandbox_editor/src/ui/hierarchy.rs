@@ -5,12 +5,28 @@
 
 use bevy::prelude::*;
 use bevy_egui::egui;
+use sandbox_engine::scene::SceneManager;
 
 use crate::selection::EditorSelection;
+
+/// Counter for generating unique entity names.
+#[derive(Resource, Default)]
+pub struct EntityCounter(pub u32);
 
 /// Displays the scene hierarchy panel.
 pub fn hierarchy_panel(ui: &mut egui::Ui, world: &mut World) {
     ui.heading("Hierarchy");
+
+    // Add Entity button
+    ui.horizontal(|ui| {
+        if ui.button("+ Add Entity").clicked() {
+            add_new_entity(world);
+        }
+        if ui.button("Delete").clicked() {
+            delete_selected_entity(world);
+        }
+    });
+
     ui.separator();
 
     // Get entities without a parent (root entities)
@@ -126,4 +142,60 @@ fn generate_entity_name(world: &World, entity: Entity) -> String {
     }
 
     format!("Entity ({:?})", entity)
+}
+
+/// Deletes the currently selected entity.
+fn delete_selected_entity(world: &mut World) {
+    let selected = world.resource::<EditorSelection>().selected_entity;
+
+    if let Some(entity) = selected {
+        // Check entity exists before despawning
+        if world.get_entity(entity).is_ok() {
+            world.despawn(entity);
+
+            // Clear selection
+            world.resource_mut::<EditorSelection>().selected_entity = None;
+
+            // Mark scene as dirty
+            if let Some(mut manager) = world.get_resource_mut::<SceneManager>() {
+                manager.mark_dirty();
+            }
+        }
+    }
+}
+
+/// Spawns a new entity with default components.
+fn add_new_entity(world: &mut World) {
+    // Initialize counter if not present
+    if !world.contains_resource::<EntityCounter>() {
+        world.init_resource::<EntityCounter>();
+    }
+
+    // Get next entity number
+    let entity_num = {
+        let mut counter = world.resource_mut::<EntityCounter>();
+        counter.0 += 1;
+        counter.0
+    };
+
+    // Spawn the entity
+    let entity = world
+        .spawn((
+            Name::new(format!("Entity {}", entity_num)),
+            Sprite {
+                color: Color::srgb(0.5, 0.5, 0.5),
+                custom_size: Some(Vec2::new(32.0, 32.0)),
+                ..default()
+            },
+            Transform::default(),
+        ))
+        .id();
+
+    // Select the new entity
+    world.resource_mut::<EditorSelection>().selected_entity = Some(entity);
+
+    // Mark scene as dirty
+    if let Some(mut manager) = world.get_resource_mut::<SceneManager>() {
+        manager.mark_dirty();
+    }
 }
