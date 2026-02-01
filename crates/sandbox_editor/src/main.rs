@@ -5,16 +5,22 @@
 
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiPlugin};
+use sandbox_engine::assets::AssetPathPlugin;
 use sandbox_engine::editor_state::{EditorPlayState, EditorStatePlugin};
 use sandbox_engine::scene::ScenePlugin;
 
+mod assets;
 mod gizmo;
 mod selection;
 mod ui;
 
+use assets::AssetBrowserPlugin;
 use gizmo::{draw_translation_gizmo, GizmoPlugin};
 use selection::SelectionPlugin;
-use ui::{hierarchy_panel, inspector_panel, menu_bar, status_messages};
+use ui::{
+    animation_editor_window, asset_browser_panel, hierarchy_panel, inspector_panel, menu_bar,
+    status_messages, AnimationEditorState,
+};
 
 fn main() {
     App::new()
@@ -28,8 +34,11 @@ fn main() {
         .add_plugins(EguiPlugin)
         .add_plugins(EditorStatePlugin)
         .add_plugins(ScenePlugin)
+        .add_plugins(AssetPathPlugin)
         .add_plugins(SelectionPlugin)
         .add_plugins(GizmoPlugin)
+        .add_plugins(AssetBrowserPlugin)
+        .init_resource::<AnimationEditorState>()
         .add_systems(Startup, setup)
         .add_systems(Update, editor_ui)
         .run();
@@ -87,6 +96,9 @@ fn editor_ui(world: &mut World) {
     // Status messages (errors, success notifications)
     status_messages(ctx, world);
 
+    // Animation editor window (floating)
+    animation_editor_window(ctx, world);
+
     // Top toolbar with play/pause/stop controls
     egui::TopBottomPanel::top("toolbar")
         .exact_height(36.0)
@@ -114,6 +126,16 @@ fn editor_ui(world: &mut World) {
         .max_width(500.0)
         .show(ctx, |ui| {
             inspector_panel(ui, world);
+        });
+
+    // Bottom panel - Asset Browser
+    egui::TopBottomPanel::bottom("asset_browser_panel")
+        .resizable(true)
+        .default_height(200.0)
+        .min_height(100.0)
+        .max_height(400.0)
+        .show(ctx, |ui| {
+            asset_browser_panel(ui, world);
         });
 
     // Central panel - Viewport
