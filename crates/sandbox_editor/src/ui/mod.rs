@@ -3,8 +3,10 @@
 
 //! Editor UI modules.
 
+pub mod file_menu;
 pub mod hierarchy;
 pub mod inspector;
 
+pub use file_menu::{menu_bar, status_messages};
 pub use hierarchy::*;
 pub use inspector::*;

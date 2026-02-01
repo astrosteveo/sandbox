@@ -33,11 +33,11 @@ A Bevy-based 2D game engine with an integrated editor, designed for rapid protot
 - [x] Play/pause/stop controls
 - [x] Basic transform gizmos
 
-### Phase 3: Scene System
-- [ ] Scene serialization (RON format)
-- [ ] Scene loading/saving
-- [ ] Prefab support
-- [ ] Hot reloading
+### Phase 3: Scene System (Complete)
+- [x] Scene serialization (RON format)
+- [x] Scene loading/saving
+- [x] Prefab support
+- [ ] Hot reloading (deferred to future)
 
 ### Phase 4: Asset Pipeline
 - [ ] Asset browser panel
