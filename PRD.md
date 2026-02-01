@@ -27,11 +27,11 @@ A Bevy-based 2D game engine with an integrated editor, designed for rapid protot
 - [x] Editor with egui split viewport (placeholder viewport)
 - [x] Demo game (spaceminer) for dogfooding
 
-### Phase 2: Editor Essentials
-- [ ] Entity inspector panel
-- [ ] Scene hierarchy view
-- [ ] Play/pause/stop controls
-- [ ] Basic transform gizmos
+### Phase 2: Editor Essentials (Complete)
+- [x] Entity inspector panel
+- [x] Scene hierarchy view
+- [x] Play/pause/stop controls
+- [x] Basic transform gizmos
 
 ### Phase 3: Scene System
 - [ ] Scene serialization (RON format)

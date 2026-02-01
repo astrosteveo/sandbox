@@ -7,9 +7,14 @@
 
 pub use bevy;
 
+pub mod editor_state;
+
 pub mod prelude {
-    pub use bevy::prelude::*;
+    pub use crate::editor_state::{
+        EditorPlayState, EditorSnapshot, EditorStatePlugin, EntityState, GameplaySystemSet,
+    };
     pub use crate::SandboxPlugin;
+    pub use bevy::prelude::*;
 }
 
 use bevy::prelude::*;
