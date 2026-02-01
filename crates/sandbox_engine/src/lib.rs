@@ -7,10 +7,12 @@
 
 pub use bevy;
 
+pub mod assets;
 pub mod editor_state;
 pub mod scene;
 
 pub mod prelude {
+    pub use crate::assets::{AnimationFrame, AssetPath, AssetPathPlugin, SpriteAnimation};
     pub use crate::editor_state::{
         EditorPlayState, EditorSnapshot, EditorStatePlugin, EntityState, GameplaySystemSet,
     };

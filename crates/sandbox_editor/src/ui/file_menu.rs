@@ -7,6 +7,8 @@ use bevy::prelude::*;
 use bevy_egui::egui;
 use sandbox_engine::scene::{load_scene, new_scene, save_scene, spawn_prefab, SceneManager};
 
+use super::AnimationEditorState;
+
 /// State for tracking pending file operations.
 #[derive(Resource, Default)]
 pub struct FileMenuState {
@@ -24,6 +26,7 @@ pub fn menu_bar(ctx: &egui::Context, world: &mut World) {
     egui::TopBottomPanel::top("menu_bar").show(ctx, |ui| {
         egui::menu::bar(ui, |ui| {
             file_menu(ui, world);
+            window_menu(ui, world);
         });
     });
 }
@@ -99,6 +102,19 @@ fn file_menu(ui: &mut egui::Ui, world: &mut World) {
         // Save as Prefab (save current selection or all as prefab)
         if ui.button("Save as Prefab...").clicked() {
             handle_save_prefab(world);
+            ui.close_menu();
+        }
+    });
+}
+
+/// Renders the Window menu.
+fn window_menu(ui: &mut egui::Ui, world: &mut World) {
+    ui.menu_button("Window", |ui| {
+        // Animation Editor
+        if ui.button("Animation Editor").clicked() {
+            if let Some(mut state) = world.get_resource_mut::<AnimationEditorState>() {
+                state.open = true;
+            }
             ui.close_menu();
         }
     });
